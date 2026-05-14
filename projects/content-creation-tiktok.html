@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Content Creation — Personal TikTok · Riki Aditya Ramadhan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #F5F7FB; --surface: #FFFFFF;
+      --border: #DDE3EE; --text: #0F1B35;
+      --muted: #6B7899; --accent: #1B3A6B;
+      --accent-lt: #E8EDF8; --accent-dk: #0F2044;
+      --r: 10px;
+      --color-background-secondary: #EEF2FA;
+      --color-border-tertiary: rgba(27,58,107,0.18);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 400; line-height: 1.7; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; line-height: 1.15; }
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 600; }
+    h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 500; }
+    p  { font-size: clamp(0.92rem, 1.5vw, 1rem); color: var(--muted); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px; font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 500; border-radius: 4px; cursor: pointer; transition: all 0.25s; border: 1.5px solid transparent; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-dk); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: rgba(245,247,251,0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); z-index: 100; display: flex; align-items: center; }
+    .topbar .container { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    .back-link svg { transition: transform 0.2s; }
+    .back-link:hover svg { transform: translateX(-3px); }
+    .topbar-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; }
+    .topbar-logo span { color: var(--accent); }
+
+    .detail-hero { padding: 100px 0 64px; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .detail-eyebrow { font-family: 'Outfit', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .detail-eyebrow::before { content: ''; width: 24px; height: 1.5px; background: var(--accent); }
+    .detail-hero h1 { margin-bottom: 20px; max-width: 780px; }
+    .detail-desc { font-size: clamp(0.95rem, 1.5vw, 1.05rem); color: var(--muted); max-width: 680px; line-height: 1.8; margin-bottom: 32px; }
+
+    .detail-meta { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; margin-bottom: 32px; }
+    .detail-meta-item { padding: 14px 20px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); }
+    .meta-label { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+    .meta-value { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+
+    .detail-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .stack-badge { font-size: 0.78rem; font-weight: 600; padding: 5px 14px; background: var(--accent-lt); border: 1px solid rgba(27,58,107,0.2); border-radius: 100px; color: var(--accent-dk); }
+    .detail-links { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .detail-gallery { padding: 80px 0 96px; }
+    .gallery-header { margin-bottom: 36px; }
+    .gallery-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .gallery-header h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+
+    .tiktok-grid-wrap {
+      background: var(--color-background-secondary);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .tiktok-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .tiktok-item {
+      display: block;
+      aspect-ratio: 9 / 16;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      background: var(--accent-lt);
+      border: 0.5px solid var(--color-border-tertiary);
+      text-decoration: none;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .tiktok-item:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+    .tiktok-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s; }
+    .tiktok-item:hover img { transform: scale(1.03); }
+    .tiktok-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 8px;
+      transition: background 0.25s;
+    }
+    .tiktok-item:hover .tiktok-overlay { background: rgba(0,0,0,0.42); }
+    .tiktok-overlay-inner {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .tiktok-item:hover .tiktok-overlay-inner { opacity: 1; transform: translateY(0); }
+    .tiktok-overlay-inner svg { color: #fff; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
+    .tiktok-overlay-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.78rem; font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.02em;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    }
+
+    .detail-footer { background: #0F1B35; color: rgba(255,255,255,0.5); padding: 28px 24px; text-align: center; font-size: 0.82rem; }
+    .detail-footer a { color: rgba(255,255,255,0.75); }
+    .detail-footer a:hover { color: #fff; }
+
+    @keyframes pageIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    main { animation: pageIn 0.4s ease; }
+
+    @media (max-width: 900px) {
+      .tiktok-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .tiktok-grid { grid-template-columns: repeat(2, 1fr); }
+      .tiktok-grid-wrap { padding: 16px; }
+      .detail-hero { padding: 84px 0 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container">
+    <a href="../index.html#projects" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Portfolio
+    </a>
+    <div class="topbar-logo">R<span>.</span>Aditya</div>
+  </div>
+</header>
+
+<main>
+<section class="detail-hero">
+  <div class="container">
+    <div class="detail-eyebrow">Projects · Content Creator · TikTok</div>
+    <h1>Content Creation —<br/>Personal TikTok</h1>
+    <p class="detail-desc">
+      Actively creating short-form content on TikTok (@heeyimrenalt) covering lifestyle and local
+      spots in Surabaya — capturing everyday life, cafes, and hidden gems with a consistent
+      personal style.
+    </p>
+
+    <div class="detail-meta">
+      <div class="detail-meta-item">
+        <div class="meta-label">Account</div>
+        <div class="meta-value">@heeyimrenalt</div>
+      </div>
+      <div class="detail-meta-item">
+        <div class="meta-label">Platform</div>
+        <div class="meta-value">TikTok</div>
+      </div>
+      <div class="detail-meta-item">
+        <div class="meta-label">Content</div>
+        <div class="meta-value">Lifestyle &amp; Local Spots</div>
+      </div>
+      <div class="detail-meta-item">
+        <div class="meta-label">Format</div>
+        <div class="meta-value">Short-form Video</div>
+      </div>
+      <div class="detail-meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value">Ongoing</div>
+      </div>
+    </div>
+
+    <div class="detail-stack">
+      <span class="stack-badge">CapCut</span>
+      <span class="stack-badge">VN Video</span>
+      <span class="stack-badge">Canva</span>
+      <span class="stack-badge">iPhone 16 Pro</span>
+      <span class="stack-badge">Short-form Video</span>
+    </div>
+
+    <div class="detail-links">
+      <a href="https://www.tiktok.com/@heeyimrenalt" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+        TikTok @heeyimrenalt
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="detail-gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="gallery-eyebrow">Screenshots &amp; Gallery</div>
+      <h2>Videos &amp; Content Footage</h2>
+    </div>
+
+    <div class="tiktok-grid-wrap">
+      <div class="tiktok-grid">
+
+        <a href="https://vt.tiktok.com/ZSxdMQ3A4/" target="_blank" rel="noopener" class="tiktok-item">
+          <img src="../assets/tiktok-personal/01-video.png" alt="TikTok Video 1" loading="lazy"/>
+          <div class="tiktok-overlay">
+            <div class="tiktok-overlay-inner">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <span class="tiktok-overlay-label">Tonton di TikTok</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://vt.tiktok.com/ZSxdMxDKR/" target="_blank" rel="noopener" class="tiktok-item">
+          <img src="../assets/tiktok-personal/02-video.png" alt="TikTok Video 2" loading="lazy"/>
+          <div class="tiktok-overlay">
+            <div class="tiktok-overlay-inner">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <span class="tiktok-overlay-label">Tonton di TikTok</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://vt.tiktok.com/ZSxdMm7sb/" target="_blank" rel="noopener" class="tiktok-item">
+          <img src="../assets/tiktok-personal/03-video.PNG" alt="TikTok Video 3" loading="lazy"/>
+          <div class="tiktok-overlay">
+            <div class="tiktok-overlay-inner">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <span class="tiktok-overlay-label">Tonton di TikTok</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://vt.tiktok.com/ZSxdMQq1m/" target="_blank" rel="noopener" class="tiktok-item">
+          <img src="../assets/tiktok-personal/04-video.png" alt="TikTok Video 4" loading="lazy"/>
+          <div class="tiktok-overlay">
+            <div class="tiktok-overlay-inner">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <span class="tiktok-overlay-label">Tonton di TikTok</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://vt.tiktok.com/ZSxdMPXKy/" target="_blank" rel="noopener" class="tiktok-item">
+          <img src="../assets/tiktok-personal/05-video.PNG" alt="TikTok Video 5" loading="lazy"/>
+          <div class="tiktok-overlay">
+            <div class="tiktok-overlay-inner">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <span class="tiktok-overlay-label">Tonton di TikTok</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.tiktok.com/@heeyimrenalt" target="_blank" rel="noopener" class="tiktok-item">
+          <img src="../assets/tiktok-personal/06-video.png" alt="TikTok @heeyimrenalt" loading="lazy"/>
+          <div class="tiktok-overlay">
+            <div class="tiktok-overlay-inner">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <span class="tiktok-overlay-label">Tonton di TikTok</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="detail-footer">
+  <p><a href="../index.html">← Back to Portfolio</a> &nbsp;·&nbsp; Crafted by <strong style="color:rgba(255,255,255,0.8)">Riki Aditya Ramadhan</strong></p>
+</footer>
+
+</body>
+</html>

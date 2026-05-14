@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>XploreJogja — Riki Aditya Ramadhan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #F5F7FB; --surface: #FFFFFF;
+      --border: #DDE3EE; --text: #0F1B35;
+      --muted: #6B7899; --accent: #1B3A6B;
+      --accent-lt: #E8EDF8; --accent-dk: #0F2044;
+      --r: 10px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 400; line-height: 1.7; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; line-height: 1.15; }
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 600; }
+    h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 500; }
+    p  { font-size: clamp(0.92rem, 1.5vw, 1rem); color: var(--muted); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px; font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 500; border-radius: 4px; cursor: pointer; transition: all 0.25s; border: 1.5px solid transparent; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-dk); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* TOP BAR */
+    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: rgba(245,247,251,0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); z-index: 100; display: flex; align-items: center; }
+    .topbar .container { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    .back-link svg { transition: transform 0.2s; }
+    .back-link:hover svg { transform: translateX(-3px); }
+    .topbar-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; }
+    .topbar-logo span { color: var(--accent); }
+
+    /* HERO */
+    .detail-hero { padding: 100px 0 64px; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .detail-eyebrow { font-family: 'Outfit', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .detail-eyebrow::before { content: ''; width: 24px; height: 1.5px; background: var(--accent); }
+    .detail-hero h1 { margin-bottom: 20px; max-width: 780px; }
+    .detail-desc { font-size: clamp(0.95rem, 1.5vw, 1.05rem); color: var(--muted); max-width: 680px; line-height: 1.8; margin-bottom: 32px; }
+    .detail-meta { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; margin-bottom: 32px; }
+    .detail-meta-item { padding: 14px 20px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); }
+    .meta-label { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+    .meta-value { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+    .detail-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .stack-badge { font-size: 0.78rem; font-weight: 600; padding: 5px 14px; background: var(--accent-lt); border: 1px solid rgba(27,58,107,0.2); border-radius: 100px; color: var(--accent-dk); }
+    .detail-links { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* GALLERY */
+    .detail-gallery { padding: 80px 0 96px; }
+    .gallery-header { margin-bottom: 36px; }
+    .gallery-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .gallery-header h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+
+    /* Landscape grid — Website/App (16:9) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .gallery-item {
+      aspect-ratio: 16 / 9;
+      border-radius: var(--r);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      background: var(--accent-lt);
+      border: 1px solid var(--border);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .gallery-item:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-overlay { position: absolute; inset: 0; background: rgba(15,32,68,0); display: flex; align-items: center; justify-content: center; transition: background 0.25s; }
+    .gallery-item:hover .gallery-overlay { background: rgba(15,32,68,0.3); }
+    .gallery-overlay svg { opacity: 0; transform: scale(0.8); transition: all 0.25s; color: white; }
+    .gallery-item:hover .gallery-overlay svg { opacity: 1; transform: scale(1); }
+    .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 14px 10px; background: linear-gradient(to top, rgba(15,32,68,0.7) 0%, transparent 100%); font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.9); opacity: 0; transition: opacity 0.25s; }
+    .gallery-item:hover .gallery-caption { opacity: 1; }
+    .gallery-figure { display: flex; flex-direction: column; }
+    .gallery-label { margin-top: 10px; font-size: 0.82rem; font-weight: 500; color: var(--muted); text-align: center; }
+
+    /* LIGHTBOX */
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .lightbox.open { display: flex; }
+    .lb-img { max-width: 100%; max-height: 90vh; border-radius: 6px; object-fit: contain; animation: lbIn 0.2s ease; }
+    @keyframes lbIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .lb-close { position: fixed; top: 20px; right: 24px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 1.3rem; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .lb-close:hover { background: rgba(255,255,255,0.22); }
+    .lb-nav { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 1.5rem; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 10000; }
+    .lb-nav:hover { background: rgba(255,255,255,0.22); }
+    .lb-prev { left: 16px; }
+    .lb-next { right: 16px; }
+    .lb-counter { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+
+    /* FOOTER */
+    .detail-footer { background: #0F1B35; color: rgba(255,255,255,0.5); padding: 28px 24px; text-align: center; font-size: 0.82rem; }
+    .detail-footer a { color: rgba(255,255,255,0.75); }
+    .detail-footer a:hover { color: #fff; }
+
+    @keyframes pageIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    main { animation: pageIn 0.4s ease; }
+
+    @media (max-width: 640px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .detail-hero { padding: 84px 0 48px; }
+      .lb-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container">
+    <a href="../index.html#projects" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Portfolio
+    </a>
+    <div class="topbar-logo">R<span>.</span>Aditya</div>
+  </div>
+</header>
+
+<main>
+<section class="detail-hero">
+  <div class="container">
+    <div class="detail-eyebrow">Projects · Web App · Laravel</div>
+    <h1>XploreJogja.com —<br/>Full Website &amp; Admin System</h1>
+    <p class="detail-desc">
+      Led the design and development of a Yogyakarta tourism website — defined system architecture,
+      user flows, and feature logic. Built on Laravel MVC with MySQL, featuring a dynamic CMS,
+      admin authentication, multi-category destination management, user review moderation,
+      and drag &amp; drop ordering.
+    </p>
+
+    <div class="detail-meta">
+      <div class="detail-meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value">Designer &amp; Developer</div>
+      </div>
+      <div class="detail-meta-item">
+        <div class="meta-label">Type</div>
+        <div class="meta-value">Full-Stack Web App</div>
+      </div>
+      <div class="detail-meta-item">
+        <div class="meta-label">Domain</div>
+        <div class="meta-value">Tourism / CMS</div>
+      </div>
+      <div class="detail-meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value">Completed</div>
+      </div>
+    </div>
+
+    <div class="detail-stack">
+      <span class="stack-badge">Laravel</span>
+      <span class="stack-badge">PHP 7.3</span>
+      <span class="stack-badge">MySQL</span>
+      <span class="stack-badge">Bootstrap 5</span>
+      <span class="stack-badge">Vanilla JS</span>
+      <span class="stack-badge">SortableJS</span>
+      <span class="stack-badge">Figma</span>
+      <span class="stack-badge">Tailwind CSS</span>
+    </div>
+
+  </div>
+</section>
+
+<section class="detail-gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="gallery-eyebrow">Documentation</div>
+      <h2>Screenshots &amp; Gallery</h2>
+    </div>
+
+    <div class="gallery-grid" id="gallery">
+
+      <figure class="gallery-figure">
+        <div class="gallery-item" data-index="0">
+          <img src="../assets/xplorejogja/01-homepage.webp" alt="Homepage" loading="lazy"/>
+          <div class="gallery-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+        </div>
+        <figcaption class="gallery-label">Homepage</figcaption>
+      </figure>
+
+      <figure class="gallery-figure">
+        <div class="gallery-item" data-index="1">
+          <img src="../assets/xplorejogja/02-destination-page.webp" alt="Destination Page" loading="lazy"/>
+          <div class="gallery-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+        </div>
+        <figcaption class="gallery-label">Destination Page</figcaption>
+      </figure>
+
+      <figure class="gallery-figure">
+        <div class="gallery-item" data-index="2">
+          <img src="../assets/xplorejogja/03-detail-destination.webp" alt="Detail Destination" loading="lazy"/>
+          <div class="gallery-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+        </div>
+        <figcaption class="gallery-label">Detail Destination</figcaption>
+      </figure>
+
+      <figure class="gallery-figure">
+        <div class="gallery-item" data-index="3">
+          <img src="../assets/xplorejogja/04-admin-dashboard.webp" alt="Admin Dashboard" loading="lazy"/>
+          <div class="gallery-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+        </div>
+        <figcaption class="gallery-label">Admin Dashboard</figcaption>
+      </figure>
+
+      <figure class="gallery-figure">
+        <div class="gallery-item" data-index="4">
+          <img src="../assets/xplorejogja/05-cms-panel.webp" alt="CMS Panel — Add Destination" loading="lazy"/>
+          <div class="gallery-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+        </div>
+        <figcaption class="gallery-label">CMS Panel — Add Destination</figcaption>
+      </figure>
+
+      <figure class="gallery-figure">
+        <div class="gallery-item" data-index="5">
+          <img src="../assets/xplorejogja/06-mockup.webp" alt="Full Mockup Overview" loading="lazy"/>
+          <div class="gallery-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+        </div>
+        <figcaption class="gallery-label">Full Mockup Overview</figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+  <button class="lb-close" id="lb-close">&times;</button>
+  <button class="lb-nav lb-prev" id="lb-prev">&#8249;</button>
+  <img id="lb-img" class="lb-img" src="" alt=""/>
+  <button class="lb-nav lb-next" id="lb-next">&#8250;</button>
+  <div class="lb-counter" id="lb-counter"></div>
+</div>
+
+<footer class="detail-footer">
+  <p><a href="../index.html">← Back to Portfolio</a> &nbsp;·&nbsp; Crafted by <strong style="color:rgba(255,255,255,0.8)">Riki Aditya Ramadhan</strong></p>
+</footer>
+
+<script>
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lb-img');
+  var lbCounter = document.getElementById('lb-counter');
+  var items = Array.from(document.querySelectorAll('.gallery-item[data-index]'));
+  var current = 0;
+
+  function openLb(i) {
+    current = i;
+    lbImg.src = items[i].querySelector('img').src;
+    lbImg.alt = items[i].querySelector('img').alt;
+    lbCounter.textContent = (i + 1) + ' / ' + items.length;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  function prevImg() { openLb((current - 1 + items.length) % items.length); }
+  function nextImg() { openLb((current + 1) % items.length); }
+
+  items.forEach(function(item, i) { item.addEventListener('click', function(){ openLb(i); }); });
+  document.getElementById('lb-close').addEventListener('click', closeLb);
+  document.getElementById('lb-prev').addEventListener('click', prevImg);
+  document.getElementById('lb-next').addEventListener('click', nextImg);
+  lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', function(e){
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') prevImg();
+    if (e.key === 'ArrowRight') nextImg();
+  });
+</script>
+</body>
+</html>
